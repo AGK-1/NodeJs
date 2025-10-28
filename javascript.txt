@@ -1,21 +1,61 @@
-const arr = [5, 6, 8 ,5, 2, 8]
-const str = ['araz','arman','arzuon']
+const arrko = [ 8, 5, 8, 55, 5, 0, 1]
+const str = ['italy','iterate','iteradze']
+const arr =[5, 6, 7, 19, 25,27]
+const sorte = arrko.sort((a, b) => a - b);
 
-// prefix, object from array, faktorial, febunachi, reverse,  
-
-const obj = (str) => {
-    
-    let obb = {};
-    
-    for(let ch of str){
-        obb[ch] = (obb[ch] || 0) + 1
+const sorting = (arrr) => {
+    let n = arrr.length; 
+    for(let i = 0; i < n - 1; i++) {
+        for(let j = 0; j < n - i - 1; j++) {
+            
+            if(arrr[j] > arrr[j + 1]) {
+                let temp = arrr[j];
+                arrr[j] = arrr[j + 1];
+                arrr[j + 1] = temp;
+            }
+        }
     }
-    return obb;
+    return arrr;
 }
+
+const febuna = (number) =>{
+    let result =[ 0, 1];
+    for(let i = 2; i < number; i++){
+        result[i] = result[i - 1] + result[ i - 2]
+    }
+    return result;
+}
+
+const obj =(ob) =>{
+    let res ={};
+    for(let ch of ob){
+        res[ch] = (res[ch] | 0) +1;
+    }
+    return res;
+}
+
+const faktorial = (number) =>{
+    if (number <= 0) return 1;
+    return number * faktorial(number -1)
+}
+
+const prefix = (arr) =>{
+    if(arr.length === 0) return "";
+    for(let i =0; i < arr[0].length; i++){
+        let ch = arr[0].charAt(i);
+        for(let j = 0; j < arr.length; j++){
+            if(i >= arr[j].length || arr[j].charAt(i) !== ch){
+                return arr[0].substring(0 , i)
+            }
+        }
+    }
+    return arr[0];
+}
+
 
 const reverse = (numb) =>{
     let number = 0;
-    while(numb != 0){
+    while(!numb <= 0){
         let digit = numb % 10;
         number = number * 10 + digit;
         numb = Math.floor(numb / 10);
@@ -23,36 +63,43 @@ const reverse = (numb) =>{
     return number;
 }
 
-const faktor = (number) =>{
-    if(number <= 0) return 1;
-    return number * faktor(number - 1);
-}
-
-const febunaci = (numb) =>{
-    let result =[0, 1]
-    for(let i = 2; i < numb; i++){
-        result[i] = result[i - 1] + result[i - 2];
+/// linear search
+const linear = (arr, target) =>{
+    for(let i =0; i < arr.length; i++){
+        if(arr[i] === target){
+            return i;
+        }
     }
-    return result;
+    return "not found"
 }
 
-
-const prefix = (arr) =>{
-    if(arr.length === 0) return "";
-    for(let i =0; i < arr[0].length; i++){
-        let ch = arr[0].charAt(i);
-            for(let j =0; j < arr.length; j++){
-               if(i > arr[j].length || arr[j].charAt(i) != ch ){
-                   return arr[0].substring(0, i);
-               }
-            }
+/// binary search worked only sorting array
+const binarySearchIterative = (arr, target) => {
+    let left = 0;
+    let right = arr.length - 1;
+    let step =0;
+    while (left <= right) {
+        step++;
+        const mid = Math.floor((left + right) / 2);
+        
+        if (arr[mid] === target) {
+            console.log(`found ${step} step`)
+            return mid; // Элемент найден
+        } else if (arr[mid] < target) {
+            left = mid + 1; // Ищем в правой половине
+        } else {
+            right = mid - 1; // Ищем в левой половине
+        }
     }
-    return arr[0];
+    console.log(`not found ${step} step`)
+    return -1; // Элемент не найден
 }
 
-
-console.log(febunaci(10))
-console.log(obj(arr));
-console.log(reverse(1799623));
-console.log(faktor(5))
-console.log(prefix(str));
+console.log(linear(arrko, 885))
+console.log(sorting(arrko))
+console.log(binarySearchIterative(arr, 255))
+console.log(faktorial(5))
+console.log(reverse(73391))
+console.log(prefix(str))
+console.log(obj(arrko))
+console.log(febuna(15))
