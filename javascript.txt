@@ -1,0 +1,58 @@
+const arr = [5, 6, 8 ,5, 2, 8]
+const str = ['araz','arman','arzuon']
+
+// prefix, object from array, faktorial, febunachi, reverse,  
+
+const obj = (str) => {
+    
+    let obb = {};
+    
+    for(let ch of str){
+        obb[ch] = (obb[ch] || 0) + 1
+    }
+    return obb;
+}
+
+const reverse = (numb) =>{
+    let number = 0;
+    while(numb != 0){
+        let digit = numb % 10;
+        number = number * 10 + digit;
+        numb = Math.floor(numb / 10);
+    }
+    return number;
+}
+
+const faktor = (number) =>{
+    if(number <= 0) return 1;
+    return number * faktor(number - 1);
+}
+
+const febunaci = (numb) =>{
+    let result =[0, 1]
+    for(let i = 2; i < numb; i++){
+        result[i] = result[i - 1] + result[i - 2];
+    }
+    return result;
+}
+
+
+const prefix = (arr) =>{
+    if(arr.length === 0) return "";
+    for(let i =0; i < arr[0].length; i++){
+        let ch = arr[0].charAt(i);
+            for(let j =0; j < arr.length; j++){
+               if(i > arr[j].length || arr[j].charAt(i) != ch ){
+                   return arr[0].substring(0, i);
+               }
+            }
+    }
+    return arr[0];
+}
+
+
+console.log(febunaci(10))
+console.log(obj(arr));
+console.log(reverse(1799623));
+console.log(faktor(5))
+console.log(prefix(str));
